@@ -17,13 +17,29 @@
     $.ajax({
       type: 'POST',
       data: formData,
-      url: 'FILL_ME_IN',
+      url: serverUrl,
       cache: false,
       contentType: false,
       processData: false,
       success: () => {
         // reload the page
         window.location = window.location.href;
+      }
+    });
+  };
+
+  const ajaxFileDownlaod = (message, cb) => {
+    $.ajax({
+      type: 'GET',
+      url: serverUrl,
+      data: {
+        message: message
+      },
+      success: function(data) {
+        console.log(data);
+      },
+      error: function(err) {
+        console.log(err);
       }
     });
   };
