@@ -6,13 +6,15 @@
   // TODO: build the swim command fetcher here
   //
 
-  const ajaxFileDownlaod = (cb = () => {}) => {
+  const ajaxFileDownlaod = (cd = () => {}) => {
+    console.log('sending GET req');
     $.ajax({
       type: 'GET',
       url: serverUrl,
       success: function(data) {
         console.log('data', data);
-        cb(data);
+        SwimTeam.move(data);
+        setTimeout(ajaxFileDownlaod, 5000);
       },
       error: function(err) {
         console.log('err', err);
@@ -20,7 +22,9 @@
     });
   };
 
-  setInterval( () => (ajaxFileDownlaod(SwimTeam.move)), 2000);
+  // setInterval( () => {
+  //   ajaxFileDownlaod(SwimTeam.move)}, 5000);
+  ajaxFileDownlaod();
 
   /////////////////////////////////////////////////////////////////////
   // The ajax file uplaoder is provided for your convenience!

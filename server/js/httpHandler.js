@@ -15,14 +15,15 @@ module.exports.backgroundImageFile = path.join('.', 'background.jpg');
 
 
 module.exports.router = (req, res, next = ()=>{}) => {
-  // console.log('Serving request type ' + req.method + ' for url ' + req.url);
-
+  console.log('Serving request type ' + req.method + ' for url ' + req.url);
+  var message;
   // Write a request handler for Getting data for swimmers
   if (req.method === 'GET') {
     if (req.url === '/') {
       res.writeHead(200, headers);
-      res.end(messageQueue.dequeue());
-      // next();
+      message = messageQueue.dequeue();
+      res.end(message);
+      next();
     }
   }
 
