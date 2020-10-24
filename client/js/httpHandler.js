@@ -6,6 +6,22 @@
   // TODO: build the swim command fetcher here
   //
 
+  const ajaxFileDownlaod = (cb = () => {}) => {
+    $.ajax({
+      type: 'GET',
+      url: serverUrl,
+      success: function(data) {
+        console.log('data', data);
+        cb(data);
+      },
+      error: function(err) {
+        console.log('err', err);
+      }
+    });
+  };
+
+  setInterval( () => (ajaxFileDownlaod(SwimTeam.move)), 2000);
+
   /////////////////////////////////////////////////////////////////////
   // The ajax file uplaoder is provided for your convenience!
   // Note: remember to fix the URL below.
@@ -28,22 +44,6 @@
     });
   };
 
-  const ajaxFileDownlaod = () => {
-    $.ajax({
-      type: 'GET',
-      url: serverUrl,
-      // data: {
-      //   message: message
-      // },
-      success: function(data) {
-        console.log('data', data);
-        // cb(data);
-      },
-      error: function(err) {
-        console.log('err', err);
-      }
-    });
-  };
 
   $('form').on('submit', function(e) {
     e.preventDefault();
