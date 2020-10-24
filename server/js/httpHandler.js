@@ -24,7 +24,52 @@ module.exports.router = (req, res, next = ()=>{}) => {
       message = messageQueue.dequeue();
       res.end(message);
       next();
+    } else if (req.url === '/background.jpg') {
+      if ( fs.existsSync(module.exports.backgroundImageFile) ) {
+        res.writeHead(200, headers);
+        res.end();
+        next();
+      } else {
+        res.writeHead(404, headers);
+        res.end();
+        next();
+      }
     }
+  }
+
+
+  /**
+   *
+   */
+
+  if (req.method === 'POST') {
+    // fs.readFile('/file', (err, data) => {
+    //   if (err) throw err;
+    //   console.log(data);
+    // });
+    let data = Buffer.alloc(0);
+    // let data = [];
+    req.on('data', chunk => {
+      // console.log(chunk);
+      // data.push(chunk);
+      // data += chunk;
+      data = Buffer.concat([data, chunk]);
+    });
+    // console.log('data', data);
+    // let buffer = Buffer.concat(data).toString();
+    // console.log('buffer', buffer);
+    req.on('end', () => {
+      let file = multipart.getFile(data)
+      fs.writeFile(module.exports.backgroundImageFile, file.data, (err) => {
+        if (err) {
+          throw err;
+        }
+        console.log('The file has been saved!');
+      });
+    });
+    res.writeHead(201, headers);
+    res.end();
+    next();
   }
 
   if (req.method === 'OPTIONS') {

@@ -18,13 +18,15 @@
       },
       error: function(err) {
         console.log('err', err);
+        setTimeout(ajaxFileDownlaod, 5000);
       }
     });
   };
 
+  // ajaxFileDownlaod();
+
   // setInterval( () => {
   //   ajaxFileDownlaod(SwimTeam.move)}, 5000);
-  ajaxFileDownlaod();
 
   /////////////////////////////////////////////////////////////////////
   // The ajax file uplaoder is provided for your convenience!
@@ -37,7 +39,7 @@
     $.ajax({
       type: 'POST',
       data: formData,
-      url: serverUrl,
+      url: serverUrl + '/background.jpg',
       cache: false,
       contentType: false,
       processData: false,
