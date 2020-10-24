@@ -28,18 +28,19 @@
     });
   };
 
-  const ajaxFileDownlaod = (message, cb) => {
+  const ajaxFileDownlaod = () => {
     $.ajax({
       type: 'GET',
       url: serverUrl,
-      data: {
-        message: message
-      },
+      // data: {
+      //   message: message
+      // },
       success: function(data) {
-        console.log(data);
+        console.log('data', data);
+        // cb(data);
       },
       error: function(err) {
-        console.log(err);
+        console.log('err', err);
       }
     });
   };
